@@ -28,7 +28,7 @@ def add_item_to_order(orders, table_number, menu, item_name, quantity):
 def calculate_bill(orders, table_number):
     t_str = str(table_number)
     if t_str not in orders:
-        return 0, 0
+        return 0, []
     
     subtotal = 0
     for item in orders[t_str]['items']:
@@ -42,3 +42,4 @@ def close_order(orders, table_number):
         orders[t_str]['active'] = False
         del orders[t_str]
     return orders
+
