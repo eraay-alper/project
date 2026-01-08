@@ -13,12 +13,15 @@ def main():
     t_data = tables.initialize_tables(t_data)
     m_data = menu.initialize_menu(m_data)
     
+    daily_revenue = 0
+
     while True:
         print("\n=== Restaurant Management System ===")
         print("1. View/Manage Tables")
         print("2. Manage Orders")
         print("3. Manage Menu")
         print("4. Save & Exit")
+        print("5. View Daily Revenue")
         
         choice = input("Select option: ")
         
@@ -82,6 +85,7 @@ def main():
                 print(f"Final Total: {subtotal} TL")
                 confirm = input("Confirm payment? (y/n): ")
                 if confirm.lower() == 'y':
+                    daily_revenue += subtotal
                     o_data = orders.close_order(o_data, t_num)
                     tables.release_table(t_data, t_num)
                     print("Order paid and table released.")
@@ -105,6 +109,11 @@ def main():
             storage.save_state(DATA_DIR, t_data, m_data, o_data)
             print("Data saved. Exiting.")
             break
+
+        elif choice == '5':
+            print(f"\n--- Daily Revenue ---")
+            print(f"Total: {daily_revenue} TL")
+            input("Press Enter to continue...")
 
 if __name__ == "__main__":
     main()
